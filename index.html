@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Too Many Cafes? Understanding South Korea’s Coffee Boom</title>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!--
+    This page loads local CSV files from /data.
+    Run via a local server (e.g., `python3 -m http.server 8000`) instead of opening the HTML file directly.
+  -->
+
+  <header class="hero" id="top">
+    <div class="wrap">
+      <p class="eyebrow">Scrollytelling Remix</p>
+      <h1>Too Many Cafes? Understanding South Korea’s Coffee Boom</h1>
+      <p class="dek">
+        A remix of the New York Times story, expanding the question from oversaturation to culture, labor, and entrepreneurship.
+      </p>
+      <p class="prose">
+        The original article frames South Korea’s cafe explosion as a market problem: too many shops competing in too little space. That interpretation is persuasive — and still incomplete.
+        This remix adds a second reading: the boom can also reflect strong demand, a deeply embedded coffee culture, and labor-market pressure that makes small business ownership feel like a rational (if risky) path.
+      </p>
+
+      <div class="meta">
+        <span><strong>Author:</strong> Yanqiu Hu</span>
+        <span>
+          <strong>Original:</strong> “South Korea Has a Coffee Shop Problem” by Pablo Robles and John Yoon
+          · <a href="https://www.nytimes.com/interactive/2025/12/03/world/asia/south-korea-coffee-shops.html">NYT link</a>
+        </span>
+      </div>
+
+      <div class="scroll-cue" aria-hidden="true">
+        <span>Scroll</span> <span class="arrow"></span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- SECTION 1 — DEMAND -->
+    <section class="section" id="demand">
+      <div class="wrap">
+        <p class="section-kicker">Section 1 · Demand</p>
+        <h2>A Nation of Coffee Drinkers</h2>
+
+        <div class="scrolly">
+          <div class="scrolly-text">
+            <p class="prose">
+              The coffee boom doesn’t start with shop owners — it starts with drinkers.
+              If many people are opening cafes, one reason is that the market is culturally legible: coffee is a daily habit.
+              The point here isn’t that consumption alone explains everything, but that demand is part of the foundation.
+            </p>
+            <p class="prose">
+              Coffee is not just a beverage — it’s a routine, a social space, and often a work accessory.
+              When demand becomes habitual, a growing number of cafes looks less like a mystery and more like a market response.
+            </p>
+          </div>
+
+          <div class="scrolly-graphic">
+            <div class="viz">
+              
+              <div class="consumption-section" aria-label="Coffee consumption benchmark stat card and lollipop chart">
+                <div class="stat-card"></div>
+                <div class="lollipop-chart"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2 — EXPANSION -->
+    <section class="section" id="expansion">
+      <div class="wrap wrap--wide">
+        <p class="section-kicker">Section 2 · Expansion</p>
+        <h2>The Rapid Growth of Cafes</h2>
+
+        <div class="scrolly scrolly--stacked">
+          <div class="scrolly-text">
+            <p class="prose">
+              Demand set the stage — then the number of cafes surged.
+              This chart emphasizes the <em>shape</em> of the boom: a steep rise in the late 2010s and early 2020s.
+            </p>
+            <p class="prose">
+              The headline here is simple: the market expanded rapidly.
+              That makes the NYT “saturation” framing plausible — but it doesn’t explain why entry kept happening even as competition intensified.
+            </p>
+          </div>
+
+          <div class="scrolly-graphic">
+            <div class="viz viz--feature">
+              <h3>Coffee shop counts nearly doubled</h3>
+              <svg id="chart-expansion" aria-label="Interactive milestone dot chart of coffee shop benchmark counts"></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3 — PRESSURE -->
+    <section class="section" id="pressure">
+      <div class="wrap">
+        <p class="section-kicker">Section 3 · Pressure</p>
+        <h2>Why Do So Many People Keep Opening Cafes?</h2>
+
+        <div class="pressure-intro">
+          <p class="prose">
+            The cafe boom can look puzzling if we treat it as a simple business decision: why keep entering a crowded market?
+            One answer is not strictly economic “opportunity,” but economic <em>pressure</em> — and how people adapt to it.
+          </p>
+          <p class="prose">
+            Opening a cafe can feel like an accessible form of entrepreneurship. Coffee is a familiar product, the business model is visible in everyday life,
+            and the cafe itself is culturally legible as a social and work space.
+          </p>
+          <p class="prose">
+            This does <em>not</em> mean unemployment caused cafe growth. Instead, unemployment can be read as a background condition that may help explain why
+            small-business entry remained understandable — even as competition intensified.
+          </p>
+
+          
+        </div>
+      </div>
+
+      <div class="pressure-stage" aria-label="Full-screen scroll-driven unemployment timeline">
+        <div class="pressure-sticky">
+          <div class="wrap">
+            <div class="pressure-panel">
+              <div class="pressure-title">
+                <h3>Persistent unemployment as coffee shops counts increase</h3>
+               
+              </div>
+
+              <div id="pressure-chart" class="pressure-layout" aria-label="Scroll-driven vertical timeline chart">
+                <div class="pressure-timeline" aria-hidden="false">
+                  <svg id="chart-pressure" aria-label="Vertical timeline of unemployment benchmarks"></svg>
+                </div>
+                <div id="pressure-annotation" class="chart-annotation pressure-annotation" aria-live="polite"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scroll triggers: invisible blocks that advance the year-by-year reveal. -->
+        <div class="pressure-triggers" aria-hidden="true">
+          <div class="pressure-trigger" data-step="0" data-year="2016"></div>
+          <div class="pressure-trigger" data-step="1" data-year="2018"></div>
+          <div class="pressure-trigger" data-step="2" data-year="2021"></div>
+          <div class="pressure-trigger" data-step="3" data-year="2022"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4 — COUNTERARGUMENT -->
+    <section class="section" id="counterargument">
+      <div class="wrap wrap--wide">
+        <p class="section-kicker">Section 4 · Counterargument</p>
+        <h2>Is the Coffee Boom Really a Problem?</h2>
+
+        <div class="scrolly scrolly--stacked">
+          <div class="scrolly-text">
+            <p class="prose">
+              The New York Times framing treats the boom as a warning sign: too many cafes competing in too little space.
+              That risk is real — but it is not the only way to read growth.
+            </p>
+            <p class="prose">
+              If the boom were <em>only</em> a problem of oversupply, we might expect shop counts to drift away from demand.
+              Yet two demand-side signals moved in the same direction: people drank more coffee, and the cafe market’s revenue expanded.
+            </p>
+            <p class="prose">
+              This does not prove that every new cafe was a good bet. It simply complicates the “saturation” story.
+              The boom can be interpreted as crowding and risk — <em>and</em> as a sign of opportunity in an expanding market.
+            </p>
+          </div>
+
+          <div class="scrolly-graphic">
+            <div class="viz viz--feature">
+              <h3>Two demand-side signals</h3>
+              
+
+              <div class="bar-duo" aria-label="Side-by-side bar charts">
+                <div class="bar-panel" aria-label="Coffee consumption per person bar chart">
+                  <h4>Coffee consumption per person</h4>
+                  <svg id="chart-consumption-small" aria-label="Bar chart of coffee consumption per person"></svg>
+                </div>
+                <div class="bar-panel" aria-label="Cafe market revenue bar chart">
+                  <h4>Cafe market revenue</h4>
+                  <svg id="chart-revenue-small" aria-label="Bar chart of cafe market revenue"></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5 — CONCLUSION -->
+    <section class="section" id="conclusion">
+      <div class="wrap">
+        <p class="section-kicker">Section 5 · Conclusion</p>
+        <h2>A Boom With More Than One Cause</h2>
+        <p class="prose">
+          South Korea’s coffee boom is not explained by a single story.
+          Competition and saturation are real — but so are cultural demand, a growing market, and the pressures that make entrepreneurship attractive.
+          This remix offers a broader interpretation than the original NYT framing: the cafe explosion can be a warning sign <em>and</em> a form of economic adaptation.
+        </p>
+      </div>
+    </section>
+
+    <!-- SOURCES / CREDITS -->
+    <section class="footer" id="sources">
+      <div class="wrap">
+        <h2>Sources and Clarifications</h2>
+        <p id="fatal" class="note-box" style="display:none"></p>
+
+        <div class="sources">
+          <p>
+            <strong>Original story remixed:</strong> Pablo Robles and John Yoon, “South Korea Has a Coffee Shop Problem,”
+            <em>The New York Times</em> (Dec. 3, 2025).
+            <a href="https://www.nytimes.com/interactive/2025/12/03/world/asia/south-korea-coffee-shops.html">https://www.nytimes.com/interactive/2025/12/03/world/asia/south-korea-coffee-shops.html</a>
+          </p>
+
+          <hr class="soft" />
+
+          <p><strong>Data sources:</strong></p>
+          <ul>
+            <li>World Bank, World Development Indicators / ILO modelled estimates for unemployment (youth unemployment).</li>
+            <li>Coffee consumption data compiled from referenced public reporting used in this project.</li>
+            <li>Statistics Korea coffee shop counts as cited in reporting (e.g., JoongAng Daily; Maeil Business; Yonhap).</li>
+            <li>UNESCO Courier for cafe market revenue growth.</li>
+          </ul>
+
+          <p><strong>Story and design:</strong> Yanqiu Hu</p>
+          <p>
+            <strong>AI usage:</strong> GPT was used for brainstorming the polishing, refining visualizations, and assisting with debugging support.
+            Final design choices and story framing were made by the author.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="tooltip" class="tooltip" aria-hidden="true"></div>
+  <script src="script.js"></script>
+</body>
+</html>
