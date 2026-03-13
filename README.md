@@ -11,7 +11,7 @@ The NYT framing emphasizes **oversaturation** (“too many cafes”). This remix
 
 ## Live link
 
-- Live demo: 
+- Live demo: https://visdesignstudies.github.io/module-two-storytelling-remix-hu-yq2005/
 
 ## What’s in the story (and why)
 
