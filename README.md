@@ -1,122 +1,91 @@
-# Too Many Cafes? Or a Different Kind of Economic Story?
+# Too Many Cafes? Understanding South Korea’s Coffee Boom (Remix)
 
-**Author:** Laura Hu
+**Author:** Yanqiu Hu
 
-## Project overview
+This project is a single-page D3 scrollytelling story that remixes the New York Times interactive:
 
-This project remixes the New York Times story **“South Korea Has a Coffee Shop Problem”** by **Pablo Robles and John Yoon**. The original article emphasizes oversaturation: too many coffee shops, too much competition, and too little room for small operators to survive.
+- **Original piece:** “South Korea Has a Coffee Shop Problem” — Pablo Robles and John Yoon (The New York Times)
+- Link: https://www.nytimes.com/interactive/2025/12/03/world/asia/south-korea-coffee-shops.html
 
-My remix keeps that argument visible, but adds a counter-reading. Instead of treating the coffee boom as only a market problem, I frame it as the overlap of three forces:
+The NYT framing emphasizes **oversaturation** (“too many cafes”). This remix keeps that risk visible, but expands the interpretation: the boom can also reflect **demand growth**, **cultural habits**, and **economic pressure** that makes small-business entry feel understandable.
 
-1. rapid growth in the number of coffee shops,
-2. persistent labor-market pressure, especially for young people,
-3. rising demand for coffee and growth in coffee-related revenue.
+## Live link
 
-So the remix asks a slightly different question:
+- Live demo: 
 
-> Is South Korea’s coffee boom only a sign of saturation, or is it also a sign of adaptation?
+## What’s in the story (and why)
 
----
+The webpage is structured into four main visual moments, each using a noticeably different design.
 
-## Story structure and design decisions
+### Section 1 — Demand (stat card + lollipop)
 
-### 1. Start with the boom
+**Design:** a stat card (kg per person) plus a lollipop chart (cups per person per year) using benchmark years.
 
-The first visualization is a **D3 line chart** showing coffee-shop counts across sourced benchmark years. It is a interactive D3 line chart. Hover a point to compare it with the labor-market view below. I placed this first because the original NYT story starts from visible growth. This gives readers a familiar entry point and establishes a baseline before the remix complicates the story.
 
-**Why this chart?**
-- It is a conventional form, so readers can understand it immediately.
-- It creates a strong first claim: the boom is real.
-- Hover interaction reveals exact values without cluttering the chart.
+**Interactivity:** hover tooltips on the lollipop marks.
 
-### 2. Introduce labor pressure
+### Section 2 — Expansion (milestone dot/line chart)
 
-The second visualization is a **D3 connected scatterplot** mapping **youth unemployment rate** against **coffee-shop count**. This is more interpretive than the first chart. Rather than just tracking change over time, it asks readers to think about a possible relationship between labor conditions and entrepreneurship.
+**Design:** a milestone chart of coffee shop counts over a few benchmark years. The line suggests direction, but the axis and annotation explicitly frame it as **benchmark years only**.
 
-**Why this chart?**
-- It is visually different from a normal line chart.
-- It supports the new section I added to the story.
-- It helps turn the remix into an explanation, not just a summary.
 
-### 3. Turn the story toward a counterargument
+**Interactivity:** hover tooltips and emphasis on points; an enter-view line-draw animation.
 
-The third visualization is a **small-multiple dumbbell chart** comparing changes in three indicators:
-- coffee shops,
-- coffee consumption,
-- cafe-market revenue.
+### Section 3 — Pressure (full-screen scroll-driven timeline)
 
-This section is the clearest response to the original article. If shop counts rose, but consumption and revenue rose too, then “too many cafes” is not the whole story.
+**Design:** a full-screen sticky stage with a vertical timeline. Scroll position advances a year-by-year reveal using invisible triggers (scrollytelling).
 
-**Why this chart?**
-- It is visually distinct from the first two charts.
-- It compresses three comparisons into one readable layout.
-- It supports the assignment’s “multiple views” extra credit by explicitly presenting a counterargument.
 
----
+**Interactivity:** scroll-driven highlighting/annotation updates (IntersectionObserver-driven), plus responsive redraw.
 
-## Interaction and view coordination
+### Section 4 — Counterargument (side-by-side bar charts)
 
-The first two charts are coordinated by **shared year highlighting**.
+**Design:** two coordinated but separate bar charts: (1) coffee consumption benchmarks, (2) cafe market revenue benchmarks.
 
-- Hovering a year in the coffee-shop line chart highlights the same year in the unemployment scatterplot.
-- Hovering a point in the scatterplot highlights the same year in the line chart.
 
-This was a deliberate design choice to make the narrative feel connected rather than like three isolated figures.
+**Interactivity:** hover tooltips on bars; animated bar transitions on render.
 
----
 
-## New technique
+## Data and sources
 
-Instead of using a purely figure-by-figure layout, I structured the page as a **single narrative scroll story** with sectional transitions:
+This repo includes the datasets used by the page under `data/`.
 
-- growth,
-- explanation,
-- counterargument.
+- Coffee shop counts: `data/coffee_shop_counts.csv` (compiled benchmark figures as cited in reporting)
+- Coffee consumption benchmarks: `data/coffee_consumption.csv`
+- Unemployment (context backdrop used in Section 3): `data/kor_unemployment_total_tidy.csv`
+- Cafe market revenue benchmarks: `data/coffee_market_revenue.csv`
 
-This is not as elaborate as full scrollytelling with pinned graphics, but it still changes the reading experience. Readers move through the argument in sequence rather than encountering all figures at once. That sequencing helps the counterargument land more clearly because the later charts revise the meaning of the earlier ones.
+The webpage also contains a Sources section that credits the original authors and lists data sources in prose.
 
----
+## Design and implementation notes 
 
-## Data sources used
+Key redesign decisions made during the remix:
 
-- **Original article:** Pablo Robles and John Yoon, *The New York Times*, “South Korea Has a Coffee Shop Problem”
-- **Total unemployment:** World Bank, indicator `SL.UEM.TOTL.ZS`
-- **Youth unemployment:** World Bank, indicator `SL.UEM.1524.ZS`
-- **Coffee shop counts:** Statistics Korea figures reported by *Korea JoongAng Daily* and *Maeil Business Newspaper*, plus Yonhap reporting for 2018
-- **Coffee consumption:** figures reported in *Coffee in South Korea* / Hyundai Research Lab and *Korea JoongAng Daily*
-- **Cafe market revenue:** *UNESCO Courier*
-
----
+- **Editorial pacing:** Section 3 uses a full-screen scrollytelling stage to control pacing and to encourage careful interpretation (context vs. causality).
+- **Counterargument structure:** Section 4 deliberately contrasts two demand-side signals to complicate the original “oversupply” narrative.
+- **Robust data loading:** some CSVs may contain leading blank lines; the loader trims text before parsing to avoid header issues.
+- **Responsive layout:** charts redraw based on container width, and sections are styled to feel open and integrated with the narrative.
 
 ## AI use statement
 
-I used **OpenAI ChatGPT** for:
-- brainstorming the storyboard,
-- identifying candidate public datasets,
-- debugging chart logic,
-- and polishing original text.
+I used **GitHub Copilot (GPT-5.2)** to support:
 
-The final argument, selection of evidence, visual structure, and interpretation were my own decisions.
+- debugging data loading/parsing issues,
+- refining layout/CSS for the scrollytelling presentation,
+- polishing original draft.
 
----
+Final framing, argumentation, data selection, and design decisions are my own.
 
-## Files in this repo
+## Repo structure
 
-- `index.html` – standalone narrative webpage
-- `data/kor_unemployment_total_tidy.csv`
-- `data/kor_youth_unemployment_tidy.csv`
-- `data/coffee_shop_counts.csv`
-- `data/coffee_consumption.csv`
-- `data/coffee_market_revenue.csv`
-- `data/seoul_municipalities_geo.json`
+- `index.html` — the standalone story page (text + embedded SVGs)
+- `style.css` — editorial styling and layout
+- `script.js` — D3 rendering + interaction logic
+- `data/` — CSV/JSON data files
 
----
+## Run locally
 
-## Running locally
-
-Because the page loads local CSV files, run it from a local web server rather than opening the HTML file directly.
-
-Example with Python:
+Because the page loads local files from `data/`, run it from a local web server (not `file://`).
 
 ```bash
 python3 -m http.server 8000
